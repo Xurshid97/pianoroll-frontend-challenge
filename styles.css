@@ -31,11 +31,55 @@ body {
   fill: white;
 }
 
-#pianoRollContainer {
+/* Code changed below */
+
+#screenChangeUpdated {
   display: flex;
-  flex-direction: column;
+  padding: 15px;
+  max-height: 75vh;
+}
+
+#pianoRollContainer {
+  padding: 10px 15px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
   align-items: center;
 }
+
+#pianoRollContainerUpdate {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  align-items: center;
+  min-width: 30%;
+  padding: 15px;
+  overflow-y:scroll;
+  max-height: 100vh;
+}
+
+#pianoRollContainerMain {
+  display: none;
+}
+#pianoRollContainerMainUpdate {
+  min-width: 70%;
+  padding: 15px;
+}
+
+
+#selection-rectangle {
+  position: fixed;
+  display: none;
+  border: 1px dashed red;
+  background: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+
+.selected-note {
+  fill: red;
+}
+/* Code changed above */
 
 h1 {
   margin-bottom: 20px;
@@ -73,14 +117,63 @@ button:hover {
   border: 2px solid #381815;
 }
 
+/* Code changed below */
+
 .piano-roll-card {
   border: 1px solid #ccc;
-  margin-bottom: 10px;
   padding: 10px;
-  width: 50%;
-  box-sizing: border-box;
+  cursor: pointer;
+  transition: 1s;
 }
+
+.piano-roll-card:hover {
+  box-shadow: 0 0 5px black;
+  transition: 1s;
+}
+
+.mainPianoRollCard {
+  box-shadow: 0 0 5px black;
+}
+
+#pianoRollContainerMainUpdate .piano-roll-card {
+  height: 90%;
+  box-shadow: 0 0 5px black;
+}
+
+#pianoRollContainerMainUpdate .piano-roll-card .piano-roll-svg{
+  height: 80%;
+}
+/* Code changed above */
 
 .description {
   margin-top: 10px;
 }
+
+
+/* Code changed below */
+/* Screen change layout */
+@media only screen and (max-width: 950px) {
+  #pianoRollContainerMainUpdate .piano-roll-card {
+    height: 80%;
+  }
+  #screenChangeUpdated {
+    max-height: 70vh;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  #pianoRollContainerMainUpdate{
+    height: fit-content;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #pianoRollContainerMainUpdate .piano-roll-card {
+    height: 90%;
+  }
+  #screenChangeUpdated {
+    flex-direction: column;
+    max-height: 100vh;
+  }
+}
+/* Code changed above */
