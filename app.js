@@ -68,8 +68,10 @@ document.getElementById('loadCSV').addEventListener('click', async () => {
 
 
 function getPianoRollEls() {
+
   // select all the cards to work on them
   let pianoRollCards = document.querySelectorAll('.piano-roll-card')
+
   pianoRollCards.forEach((pianoRollCardEl) => {
     setMainPianoRoll(pianoRollCardEl)
   })
@@ -78,15 +80,19 @@ function getPianoRollEls() {
 
 // when piano-roll-card is clicked remind it
 let lastMainPianoRollCard = null;
+
 function setMainPianoRoll(pianoRollCardEl) {
 
   // get elements from html to change screen shape and children elements
   let screenChangeEl = document.getElementById('screenChange')
-  let pianoRollContainerMainEl = document.getElementById('pianoRollContainerMain')
+  let mainContainerEl = document.getElementById('mainContainer')
   let pianoRollContainerEl = document.getElementById('pianoRollContainer')
 
 
   pianoRollCardEl.addEventListener('click', () => {
+    
+    // on vertical line, when card clicked, the old selection_rectangle disappeared
+    document.getElementById('selection-rectangle').style.display = 'none'
 
     // check if the last modiefied card exist, and remove mainCard class from it
     if (lastMainPianoRollCard) {
@@ -96,9 +102,9 @@ function setMainPianoRoll(pianoRollCardEl) {
     // on each card clicked, change screen shape and
     screenChangeEl.id = 'screenChangeUpdated'
 
-    // add pianoRollContainerMainUpdate class to make a parent of card and set it empty
-    pianoRollContainerMainEl.id = 'pianoRollContainerMainUpdate'
-    pianoRollContainerMainEl.innerHTML = ''
+    // add mainContainerUpdate class to make a parent of card and set it empty
+    mainContainerEl.id = 'mainContainerUpdate'
+    mainContainerEl.innerHTML = ''
 
     // add pianoRollContainerUpdate class to make vertical screen for cards
     pianoRollContainerEl.id = 'pianoRollContainerUpdate'
@@ -108,11 +114,12 @@ function setMainPianoRoll(pianoRollCardEl) {
 
     // get the clone of the clicked card, and add it to main container element
     let pianoRollCardChildEl = pianoRollCardEl.cloneNode(true);
-    pianoRollContainerMainEl.appendChild(pianoRollCardChildEl)
+    mainContainerEl.appendChild(pianoRollCardChildEl)
 
     // remember last modified piano Card
     lastMainPianoRollCard = pianoRollCardEl
-    getSelectedPart(pianoRollContainerMainEl.querySelector('.piano-roll-svg'))
+
+    getSelectedPart(mainContainerEl.querySelector('.piano-roll-svg'))
   })
 }
 
@@ -123,13 +130,13 @@ function getSelectedPart(mainPianoCard) {
   let startCoords = { x: 0, y: 0 };
   let endCoords = { x: 0, y: 0 };
 
-
   let selectionRectangle = document.getElementById("selection-rectangle");
 
   mainPianoCard.addEventListener("mousedown", (e) => {
     isSelecting = true;
     startCoords.x = e.clientX;
     startCoords.y = e.clientY;
+
     let selectionRectangle = document.getElementById("selection-rectangle");
     selectionRectangle.innerText = ''
   });
@@ -149,13 +156,14 @@ function getSelectedPart(mainPianoCard) {
   });
 
   function updateSelectionRectangle() {
-    selectionRectangle.style.display = "block";
 
     const left = Math.min(startCoords.x, endCoords.x);
     const top = Math.min(startCoords.y, endCoords.y);
     const width = Math.abs(startCoords.x - endCoords.x);
     const height = Math.abs(startCoords.y - endCoords.y);
 
+    selectionRectangle.style.display = "block";
+    
     selectionRectangle.style.left = left + "px";
     selectionRectangle.style.top = top + "px";
     selectionRectangle.style.width = width + "px";
@@ -184,8 +192,8 @@ function getSelectedPart(mainPianoCard) {
     const selectionRectBottom = selectionRect.bottom;
 
     // Select only Main updated container's notes, helps faster search
-    let pianoRollContainerMainUpdateEl = document.getElementById('pianoRollContainerMainUpdate')
-    const noteRectangles = pianoRollContainerMainUpdateEl.querySelectorAll('.note-rectangle');
+    let mainContainerUpdateEl = document.getElementById('mainContainerUpdate')
+    const noteRectangles = mainContainerUpdateEl.querySelectorAll('.note-rectangle');
     let noteCounter = 0;
     let lastModifiedNotes = []
     

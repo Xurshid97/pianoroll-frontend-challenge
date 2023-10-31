@@ -58,10 +58,10 @@ body {
   max-height: 100vh;
 }
 
-#pianoRollContainerMain {
+#mainContainer {
   display: none;
 }
-#pianoRollContainerMainUpdate {
+#mainContainerUpdate {
   min-width: 70%;
   padding: 15px;
 }
@@ -135,12 +135,13 @@ button:hover {
   box-shadow: 0 0 5px black;
 }
 
-#pianoRollContainerMainUpdate .piano-roll-card {
+
+#mainContainerUpdate .piano-roll-card {
   height: 90%;
   box-shadow: 0 0 5px black;
 }
 
-#pianoRollContainerMainUpdate .piano-roll-card .piano-roll-svg{
+#mainContainerUpdate .piano-roll-card .piano-roll-svg{
   height: 80%;
 }
 /* Code changed above */
@@ -153,7 +154,7 @@ button:hover {
 /* Code changed below */
 /* Screen change layout */
 @media only screen and (max-width: 950px) {
-  #pianoRollContainerMainUpdate .piano-roll-card {
+  #mainContainerUpdate .piano-roll-card {
     height: 80%;
   }
   #screenChangeUpdated {
@@ -162,17 +163,21 @@ button:hover {
 }
 
 @media only screen and (max-width: 750px) {
-  #pianoRollContainerMainUpdate{
+  #mainContainerUpdate{
     height: fit-content;
   }
 
   #pianoRollContainer {
     grid-template-columns: 1fr 1fr;
   }
+
+  #pianoRollContainerUpdate .piano-roll-svg{
+    height: 100px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-  #pianoRollContainerMainUpdate .piano-roll-card {
+  #mainContainerUpdate .piano-roll-card {
     height: 90%;
   }
   #screenChangeUpdated {
