@@ -11,7 +11,7 @@ Task is finished. I have uploaded the video for the explanation of what and why 
 
   app.js
   
-  Without any additional JS library is not used.
+  Any additional JS library is not used.
   
 4. Set main Card functionality
    
